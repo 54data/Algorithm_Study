@@ -1,11 +1,10 @@
-import sys
-n = int(sys.stdin.readline())
+n = int(input())
 result = []
-
-for i in range(n):
-    result.append(input().split())
-
-result.sort(key=lambda x:(-int(x[1]), int(x[2]), -int(x[3]), x[0]))
+for _ in range(n):
+    name, kor, eng, math = input().split()
+    result.append([name, int(kor), int(eng), int(math)])
+    
+result.sort(key=lambda x:(-x[1], x[2], -x[3], x[0]), reverse=False)
 
 for i in result:
     print(i[0])
