@@ -1,22 +1,22 @@
 def sosu(x):
-    if x < 2:
-        return False
-    for i in range(2, int(x**0.5)+1):
-        if x % i == 0:
-            return False
-    return 1
-    
+    sosu_list = []
+    for i in x:
+        if i == 1 or i == 0:
+            pass
+        else:
+            for j in range(2, int(i**0.5)+1):
+                if i!=j and i%j==0:
+                    break
+            else:
+                sosu_list.append(i)
+    return len(sosu_list)
+
+from itertools import permutations as pm
 def solution(numbers):
-    from itertools import permutations as pm
     result = []
     for i in range(1, len(numbers)+1):
-        result.extend(list(pm(numbers, i)))
-    
-    result = [int(''.join(i)) for i in result]
+        result += list(pm(list(numbers), i))
+    result = list(map(lambda x:int(''.join(x)), result))
     result = list(set(result))
-    
-    cnt = 0
-    for j in result:
-        cnt += sosu(j)
-        
-    return cnt
+    result.sort()
+    return sosu(result)
