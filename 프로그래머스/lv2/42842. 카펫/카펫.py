@@ -1,5 +1,5 @@
 def solution(brown, yellow):
-    for x in range(2, int(brown/2)+1):
-        y = (brown+4)/2 - x
-        if (x*y == brown + yellow) and (x>=y):
-            return [x, y]
+    for i in range(1, brown):
+        x = (brown+yellow) // i
+        if x*i == 2*x + 2*i - 4 +  yellow:
+            return [x, i]
