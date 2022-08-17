@@ -1,38 +1,45 @@
 n, m, v = map(int, input().split())
-graph = [[] for i in range(n+1)]
+graph = [[] for _ in range(n+1)]
+visited = [False] * (n+1)
+visited[v] = True
 
-for i in range(m):
-    a = list(map(int, input().split()))
-    graph[a[0]].append(a[1])
-    graph[a[1]].append(a[0])
+for _ in range(m):
+    a, b = map(int, input().split())
+    graph[a].append(b)
+    graph[b].append(a)
     
 graph = list(map(lambda x:sorted(x), graph))
-visited = [False] * (n+1)
 
-def dfs(graph, v, visited):
-    visited[v] = True
-    print(v, end=' ')
-    for i in graph[v]:
+result = []
+result.append(str(v))
+def dfs(graph, start, visited):
+    global result
+    for i in graph[start]:
         if visited[i] == False:
+            visited[i] = True
+            result.append(str(i))
             dfs(graph, i, visited)
-
+    else:
+        return
 dfs(graph, v, visited)
+print(' '.join(result))
 
-visited2 = [False] * (n+1)
-
-print(end='\n')
+visited = [False] * (n+1)
+visited[v] = True
+result = []
+result.append(str(v))
 
 from collections import deque
-
-def bfs(graph, start, visited2):
+def bfs(graph, start, visited):
+    global result
     queue = deque([start])
-    visited2[start] = True
     while queue:
-        v = queue.popleft()
-        print(v, end=' ')
-        for i in graph[v]:
-            if visited2[i] == False:
+        x = queue.popleft()
+        for i in graph[x]:
+            if visited[i] == False:
+                visited[i] = True
+                result.append(str(i))
                 queue.append(i)
-                visited2[i] = True
                 
-bfs(graph, v, visited2)
+bfs(graph, v, visited)
+print(' '.join(result))
