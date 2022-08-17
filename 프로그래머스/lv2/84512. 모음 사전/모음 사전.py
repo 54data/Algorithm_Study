@@ -1,9 +1,9 @@
 from itertools import product
 def solution(word):
-    words = []
+    alist = ['A', 'E', 'I', 'O', 'U']
+    result = []
     for i in range(1, 6):
-        for c in product(['A', 'E', 'I', 'O', 'U'], repeat = i):
-            words.append(''.join(list(c)))
-            
-    words.sort()
-    return words.index(word)+1
+        result += list(product(alist, repeat=i))
+    result.sort()
+    result = list(map(lambda x:''.join(x), result))
+    return result.index(word) + 1
