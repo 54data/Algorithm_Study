@@ -1,17 +1,18 @@
-def solution(numbers, target):
-    global answer
-    answer = 0
-    dfs(numbers, target, 0, 0)
-    return answer
-
-def dfs(numbers, target, cnt, result):
-    global answer
+result = 0
+def dfs(cnt, numbers, target, answer):
+    global result
     if cnt == len(numbers):
-        if result == target:
-            answer += 1
+        if answer == target:
+            result += 1
         else:
             return
     else:
-        dfs(numbers, target, cnt+1, result+numbers[cnt])
-        dfs(numbers, target, cnt+1, result-numbers[cnt])
+        dfs(cnt+1, numbers, target, answer+numbers[cnt])
+        dfs(cnt+1, numbers, target, answer-numbers[cnt])
     
+def solution(numbers, target):
+    global result
+    answer = 0
+    dfs(0, numbers, target, 0)
+    
+    return result
