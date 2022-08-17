@@ -1,23 +1,28 @@
+from collections import defaultdict
 def solution(genres, plays):
-    result = {}
-    for i in genres:
-        result[i] = 0
+    temp = defaultdict(int)
+    for i, j in zip(genres, plays):
+        temp[i] += j
         
-    for i,x in zip(genres, plays):
-        result[i] += x
-        
-    keylist = list(result.keys())
-    keylist.sort(key=lambda x:result[x], reverse=True)
+    result = []
+    x = 0
+    for i, j in zip(genres, plays):
+        result.append((i, j, x))
+        x += 1
+
+    result.sort(key=lambda x:(temp[x[0]], x[1], -x[2]), reverse=True)        
+    most_play = sorted(list(temp.keys()), key=lambda x:temp[x], reverse=True)
     
     answer = []
-    for i in keylist:
-        append_list = []
-        for x in range(len(genres)):
-            if genres[x] == i:
-                append_list.append([x, plays[x]])
-        append_list.sort(key=lambda x:x[1], reverse=True)
-        answer.append(append_list[0][0])
-        if len(append_list) > 1:
-            answer.append(append_list[1][0])
-        
+    for i in most_play:
+        cnt = 0
+        for j in result:
+            if i == j[0]:
+                if cnt < 2:
+                    answer.append(j[2])
+                    cnt += 1
+            else:
+                cnt = 0
+                continue
     return answer
+                
