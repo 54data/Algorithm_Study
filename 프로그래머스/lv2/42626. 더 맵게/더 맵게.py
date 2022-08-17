@@ -1,16 +1,16 @@
 import heapq
 def solution(scoville, K):
-    scoville.sort()
     heapq.heapify(scoville)
     cnt = 0
-    
-    while scoville[0] <= K:
-        if len(scoville) == 1:
+    while scoville:
+        if len(scoville) <= 1:
             return -1
-        a = heapq.heappop(scoville)
-        b = heapq.heappop(scoville)
-        heapq.heappush(scoville, a+b*2)
-        
+        x = heapq.heappop(scoville)
+        y = heapq.heappop(scoville)
+        heapq.heappush(scoville, x+y*2)
         cnt += 1
-        
-    return cnt
+        for i in scoville:
+            if i < K:
+                break
+        else:
+            return cnt
