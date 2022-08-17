@@ -1,20 +1,12 @@
-from collections import deque
 def solution(prices):
-    queue = deque(prices)
-    answer = []
-    result = [0] * len(prices)
-    cnt = 0
-    while queue:
-        x = queue.popleft()
-        for i in queue:
-            if i >= x:
-                result[cnt] += 1
+    result = []
+    for i in range(len(prices)):
+        cnt = 0
+        for j in range(i+1, len(prices)):
+            cnt += 1
+            if prices[j] >= prices[i]:
+                continue
             else:
-                result[cnt] += 1
                 break
-        cnt += 1
-    result[-1] = 0
+        result.append(cnt)
     return result
-
-print(solution([1, 2, 3, 2, 3, 3, 1]))
-
