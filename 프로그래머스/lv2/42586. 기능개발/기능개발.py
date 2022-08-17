@@ -1,23 +1,25 @@
 def solution(progresses, speeds):
-    result = []
-    while progresses != []:
-        cnt = 0
-        num = len(progresses)
-        for i in range(num):
-            progresses[i] += speeds[i]
+    answer = []
+    cnt = 0
+    while True:
+        for i, x in enumerate(speeds):
+            progresses[i] += x
+            
         while True:
             if progresses[0] >= 100:
-                x = progresses.pop(0)
-                del speeds[0]
+                progresses.pop(0)
+                speeds.pop(0)
                 cnt += 1
-                if len(progresses) == 0:
-                    result.append(cnt)
+                if progresses == []:
                     break
-                continue
-            elif cnt != 0:
-                result.append(cnt)
-                break
             else:
                 break
-
-    return result
+                
+        if cnt != 0:
+            answer.append(cnt)
+            cnt = 0
+            
+        if speeds == []:
+            break
+            
+    return answer
