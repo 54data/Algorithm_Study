@@ -1,7 +1,6 @@
+from collections import defaultdict
 def solution(clothes):
-    answer = {}
-    for i in clothes:
-        answer[i[1]] = []
+    answer = defaultdict(list)
     for i in clothes:
         answer[i[1]].append(i[0])
         
@@ -10,5 +9,3 @@ def solution(clothes):
         cnt *= (len(answer[i])+1)
     
     return cnt-1
-
-    
