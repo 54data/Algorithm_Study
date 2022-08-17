@@ -1,10 +1,20 @@
+from collections import deque
 def solution(priorities, location):
+    result = []
+    for i, j in enumerate(priorities):
+        result.append((i, j))
+    queue = deque(result)
     answer = []
-    array = [(i, x) for i, x in enumerate(priorities)]
-    while (array != []):
-        if array[0][1] < max(array, key=lambda x:x[1])[1]:
-            array.append(array.pop(0))
+    while queue:
+        x, y= queue.popleft()
+        for i in queue:
+            if i[1] > y:
+                queue.append((x, y))
+                break
         else:
-            answer.append(array.pop(0)[0])
-    return answer.index(location) + 1
-            
+            answer.append((x, y))
+    
+    for i in range(len(answer)):
+        if answer[i][0] == location:
+            return i+1
+                
