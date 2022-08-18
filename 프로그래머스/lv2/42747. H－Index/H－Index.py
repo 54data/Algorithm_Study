@@ -1,6 +1,17 @@
 def solution(citations):
-    citations.sort()
-    for i in range(max(citations), -1, -1):
-        a = len(list(filter(lambda x:x>=i, citations)))
-        if a >= i and len(citations) - a <= i:
-            return i
+    answer = 0
+    start = 0
+    end = max(citations)
+    while start<=end:
+        mid = (start + end) // 2
+        cnt = 0
+        for i in citations:
+            if i >= mid:
+                cnt += 1   
+        if cnt >= mid and len(citations) - cnt <= mid:
+            answer = mid
+        if cnt < mid:
+            end = mid - 1
+        else:
+            start = mid + 1
+    return answer
