@@ -6,8 +6,8 @@ def solution(expression):
     answer = 0
     chars = list(permutations(['+', '-', '*']))
     for char in chars:
-        exp = copy.deepcopy(expression)
-        ex = re.split('(\D)', exp)
+        #exp = copy.deepcopy(expression)
+        ex = re.split('(\D)', expression)
         for c in char:
             while c in ex:
                 idx = ex.index(c)
