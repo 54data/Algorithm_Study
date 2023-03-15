@@ -1,28 +1,34 @@
-from bisect import bisect_right, bisect_left
-
-def cnt_index(a, left_value, right_value):
-    right_index = bisect_right(a, right_value)
-    left_index = bisect_left(a, left_value)
-    return right_index - left_index
-
-array = [[] for _ in range(10001)]
-reversed_array = [[] for _ in range(10001)]
-
+from bisect import bisect_left, bisect_right
+from collections import defaultdict
 def solution(words, queries):
+    words.sort()
+    reverse_words = sorted(list(map(lambda x:x[::-1], words)))
+    word_dict = defaultdict(list)
+    reverse_dict = defaultdict(list)
+    
+    for i in range(len(words)):
+        word_dict[len(words[i])].append(words[i])
+        reverse_dict[len(reverse_words[i])].append(reverse_words[i])
+    
     answer = []
-    for word in words:
-        array[len(word)].append(word)
-        reversed_array[len(word)].append(word[::-1])
+    
+    for i in range(len(queries)):
+        cnt = 0
+        len_ = len(queries[i])
+
+        if queries[i][0] == queries[i][-1]:
+            answer.append(len(word_dict[len_]))
+            continue
         
-    for i in range(10001):
-        array[i].sort()
-        reversed_array[i].sort()
-        
-    for q in queries:
-        if q[0] != '?':
-            res = cnt_index(array[len(q)], q.replace('?', 'a'), q.replace('?', 'z'))
+        elif queries[i][-1] == '?':
+            a = bisect_left(word_dict[len_], queries[i].replace('?', 'a'))
+            b = bisect_right(word_dict[len_], queries[i].replace('?', 'z'))
+
         else:
-            res = cnt_index(reversed_array[len(q)], q[::-1].replace('?', 'a'), q[::-1].replace('?', 'z'))
-        answer.append(res)
-        
+            reverse_i = queries[i][::-1]
+            a = bisect_left(reverse_dict[len_], reverse_i.replace('?', 'a'))
+            b = bisect_right(reverse_dict[len_], reverse_i.replace('?', 'z'))
+
+        answer.append(b-a)         
+            
     return answer
