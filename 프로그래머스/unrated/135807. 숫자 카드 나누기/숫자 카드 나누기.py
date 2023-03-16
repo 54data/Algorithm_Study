@@ -9,6 +9,7 @@ def get_gcd(arr):
 def solution(arrayA, arrayB):
     answer = 0
     stat1, stat2 = True, True
+    arrayA, arrayB = sorted(arrayA), sorted(arrayB)
     gcd_A, gcd_B = get_gcd(arrayA), get_gcd(arrayB) 
     
     for i in range(len(arrayB)):     
