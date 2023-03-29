@@ -1,7 +1,9 @@
 n = int(input())
-result = [0, 1]
-for i in range(2, n+1):
-    num = result[i-1] + result[i-2]
-    result.append(num)
+nlist = [0] * (21)
+nlist[0] = 0
+nlist[1] = 1
+
+for i in range(2, len(nlist)):
+    nlist[i] = nlist[i-1] + nlist[i-2]
     
-print(result[n])
+print(nlist[n])
