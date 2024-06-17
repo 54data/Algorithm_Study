@@ -14,9 +14,7 @@ public class Main {
             
             for (int i = 0; i < k; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (j == 0) {
-                        apt[j] = 1;
-                    } else if (j >= 1 && j <= n - 1) {
+                    if (j >= 1 && j <= n - 1) {
                         apt[j] += apt[j - 1];
                     } 
                 }
