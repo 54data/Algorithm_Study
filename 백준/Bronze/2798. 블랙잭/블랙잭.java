@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) throws IOException { // BufferedReader 사용할 때 IO 예외처리
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); // 문자열 입력
         StringTokenizer st = new StringTokenizer(br.readLine(), " "); // 공백을 기준으로 나누기
-        n = Integer.parseInt(st.nextToken()); // 문자열 정수 변환하여 변수 초기화
+        n = Integer.parseInt(st.nextToken()); // 나눠진 문자열을 정수로 변환하여 변수 초기화
         m = Integer.parseInt(st.nextToken());
         visited = new boolean[n];
         cardAry = new int[n];
@@ -29,8 +29,8 @@ public class Main {
 
     public static void dfs(int cnt, int sum) {
         if (cnt == 3) {
-            if (sum <= m) {
-                max = Math.max(sum, max);
+            if (sum <= m) { 
+                max = Math.max(sum, max); 
             }
             return;
         }
